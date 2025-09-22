@@ -1,0 +1,30 @@
+%{
+#include <stdio.h>
+
+int vowel_count = 0;
+int consonant_count = 0;
+int digit_count = 0;
+%}
+
+%%
+
+[aeiouAEIOU]          { vowel_count++; }              // Vowels
+[a-zA-Z]              { consonant_count++; }          // Consonants
+[0-9]                 { digit_count++; }              // Digits
+.                     { /* ignore everything else */ }
+
+%%
+
+int main() {
+    printf("Enter text (Ctrl+D to end):\n");
+    yylex();
+    printf("\n--- Results ---\n");
+    printf("Vowels      : %d\n", vowel_count);
+    printf("Consonants  : %d\n", consonant_count);
+    printf("Digits      : %d\n", digit_count);
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
